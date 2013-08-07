@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="info.linsword20.weather.bean.CityInfo" table="city_code">
+		<id name="id" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+		<property name="city" column="city" type="string"></property>
+		<property name="code" column="code" type="string"></property>
+
+	</class>
+</hibernate-mapping>

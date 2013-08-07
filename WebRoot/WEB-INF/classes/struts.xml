@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="wechat" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="userLoginInterceptor"
+				class="info.linsword20.todo.action.interceptor.UserLoginInterceptor">
+			</interceptor>
+					
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="userLoginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>	
+		</interceptors>
+
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+
+		<global-results>
+    		<result name="login" type="redirect">/user.html</result>
+    	</global-results>
+
+
+		<!-- 微信接口 -->
+		<action name="wechat" class="wechataction">
+		 <interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+		<!-- todo Action Configuration -->
+		<action name="save" class="saveTaskAction">
+			<result name="success" type="redirect">/list.html</result>
+		</action>
+
+		<action name="list" class="listTaskAction">
+			<result name="success">/WEB-INF/pages/list.jsp</result>
+		</action>
+		
+		<action name="list1" class="listTaskAction" method="execute1">
+			<result name="success">/WEB-INF/pages/list.jsp</result>
+		</action>
+		
+		<action name="list2" class="listTaskAction" method="execute2">
+			<result name="success">/WEB-INF/pages/list.jsp</result>
+		</action>
+		
+		<action name="add" class="listTaskAction" method="add">
+			<result name="success">/WEB-INF/pages/add.jsp</result>
+		</action>
+
+		<action name="mark" class="markTaskAction">
+			<result name="error" type="redirect">/list.html</result>
+			
+		</action>
+
+		<action name="delete" class="deleteTaskAction">
+			<result name="success" type="redirect">/list.html</result>
+		</action>
+
+		<action name="alter" class="alterTaskAction">
+			<result name="error" type="redirect">/list.html</result>
+		</action>
+
+		<action name="update" class="updateTaskAction">
+		</action>
+
+		<action name="user*" class="loginAction" method="{1}">
+			<result name="input">/WEB-INF/pages/login.jsp</result>
+			<result name="success" type="redirect">/list.html</result>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+
+	</package>
+</struts>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="info.linsword20.todo.bean.Task" table="tasks">
+		<id name="id" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+		<property name="content" column="content" type="string"></property>
+		<property name="flag" column="flag" type="byte"></property>
+		<property name="user_id" column="user_id" type="int"></property>
+		<property name="startTime" column="starttime" type="timestamp"></property>
+		<property name="stopTime" column="stoptime" type="timestamp"></property>
+	</class>
+</hibernate-mapping>

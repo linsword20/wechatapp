@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+           http://www.springframework.org/schema/beans/spring-beans.xsd  
+           http://www.springframework.org/schema/aop  
+           http://www.springframework.org/schema/aop/spring-aop.xsd  
+           ">
+
+	<aop:aspectj-autoproxy />
+
+	<!-- 数据库连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/wechat</value>
+		</property>
+
+		<property name="username">
+			<value>root</value>
+		</property>
+
+		<property name="password">
+			<value>jiansheng</value>
+		</property>
+	</bean>
+
+	<!-- SessionFactory注入 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+
+		<property name="mappingResources">
+			<list>
+				<value>info/linsword20/todo/bean/Task.hbm.xml</value>
+				<value>info/linsword20/todo/bean/User.hbm.xml</value>
+				<value>info/linsword20/weather/bean/CityInfo.hbm.xml</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+	<!--
+		***************************************************************待办事项*****************************************************************
+	-->
+
+	<!-- Tasks持久化层 -->
+
+	<bean id="taskDao" class="info.linsword20.todo.dao.task.impl.TaskDAOImpl"
+		scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+
+	<!-- Tasks Service层 -->
+
+	<bean id="taskService" class="info.linsword20.todo.service.task.impl.TaskServiceImpl"
+		scope="singleton">
+		<property name="taskDao" ref="taskDao"></property>
+	</bean>
+
+
+	<!-- Tasks Action-->
+	<bean id="saveTaskAction" class="info.linsword20.todo.action.task.SaveTaskAction"
+		scope="prototype">
+		<property name="taskService" ref="taskService"></property>
+	</bean>
+
+	<bean id="listTaskAction" class="info.linsword20.todo.action.task.ListTaskAction"
+		scope="prototype">
+		<property name="tasksService" ref="taskService"></property>
+	</bean>
+
+	<bean id="markTaskAction" class="info.linsword20.todo.action.task.MarkTaskAction">
+		<property name="tasksService" ref="taskService"></property>
+	</bean>
+
+	<bean id="deleteTaskAction" class="info.linsword20.todo.action.task.DeleteTaskAction"
+		scope="prototype">
+		<property name="taskService" ref="taskService"></property>
+	</bean>
+
+	<bean id="alterTaskAction" class="info.linsword20.todo.action.task.AlterTaskAction"
+		scope="prototype">
+		<property name="taskService" ref="taskService"></property>
+	</bean>
+
+	<bean id="updateTaskAction" class="info.linsword20.todo.action.task.UpdateTaskAction"
+		scope="prototype">
+		<property name="taskService" ref="taskService"></property>
+	</bean>
+
+
+
+	<!--
+		***************************************************************用户管理*****************************************************
+	-->
+	<bean id="userDao" class="info.linsword20.todo.dao.user.impl.UserDAOImpl"
+		scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="userService" class="info.linsword20.todo.service.user.impl.UserServiceImpl"
+		scope="singleton">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<bean id="loginAction" class="info.linsword20.todo.action.user.LoginAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+
+	<bean id="testAspect" class="info.linsword20.todo.action.user.UserControlAspect"></bean>
+
+
+
+	<!--
+		***************************************************************天气查询***********************************************
+	-->
+
+
+	<bean id="cityInfoDao" class="info.linsword20.weather.dao.impl.CityInfoDAOImpl"
+		scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="weacherService" class="info.linsword20.weather.service.impl.WeatherServiceImpl"
+		scope="singleton">
+		<property name="cityInfoDao" ref="cityInfoDao"></property>
+	</bean>
+
+
+	<!--
+		*************************************************Task
+		微信Service层***************************************************
+	-->
+	<bean id="task4WechatService"
+		class="info.linsword20.todo.service.task.impl.Task4WechatServiceImpl"
+		scope="singleton">
+		<property name="taskDao" ref="taskDao"></property>
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+
+	<!--
+		***************************************************************微信*****************************************************
+	-->
+
+	<!-- 回复Text类型消息处理类 -->
+	<bean id="textResponseService"
+		class="info.linsword20.wechat.service.impl.TextResponseServiceImpl"
+		scope="singleton">
+		<property name="task4WechatService" ref="task4WechatService"></property>
+	</bean>
+
+	<!-- 回复News类型消息处理类 -->
+	<bean id="newsResponseService"
+		class="info.linsword20.wechat.service.impl.NewsResponseServiceImpl"
+		scope="singleton">
+		<property name="weatherService" ref="weacherService"></property>
+	</bean>
+
+	<!-- 消息处理类 -->
+	<bean id="msgProcessService"
+		class="info.linsword20.wechat.service.impl.MsgProcessServiceImpl"
+		scope="singleton">
+		<property name="textResponserService" ref="textResponseService"></property>
+		<property name="newsResponseService" ref="newsResponseService"></property>
+	</bean>
+
+
+	<!-- action -->
+	<bean id="wechataction" class="info.linsword20.wechat.action.WechatAction"
+		scope="prototype">
+		<property name="msgProcessService" ref="msgProcessService"></property>
+	</bean>
+
+
+
+</beans>
