@@ -1,7 +1,9 @@
 package info.linsword20.todo.action.task;
 
 import info.linsword20.todo.action.BaseAction;
+import info.linsword20.todo.annotation.UserAccessAnnotation;
 import info.linsword20.todo.bean.Task;
+import info.linsword20.todo.myenum.ISLOGIN;
 import info.linsword20.todo.service.task.TaskService;
 
 import java.io.PrintWriter;
@@ -39,6 +41,7 @@ public class AlterTaskAction extends BaseAction
 	}
 
 	@Override
+	@UserAccessAnnotation(isLogin = ISLOGIN.YES)
 	public String execute() throws Exception
 	{
 		HttpServletRequest request = ServletActionContext.getRequest();

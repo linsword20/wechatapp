@@ -87,8 +87,11 @@ public class TextResponseServiceImpl implements TextResponseService
 				if (0 == list.length())
 				{
 					stringBuffer.append("没有待办事项！");
+					
 				}
+				else{
 				stringBuffer.append("待办事项：\n").append(list);
+				}
 			}
 
 			// 删除待办事项

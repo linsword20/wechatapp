@@ -1,8 +1,10 @@
 ﻿package info.linsword20.todo.action.task;
 
 import info.linsword20.todo.action.BaseAction;
+import info.linsword20.todo.annotation.UserAccessAnnotation;
 import info.linsword20.todo.bean.Task;
 import info.linsword20.todo.bean.User;
+import info.linsword20.todo.myenum.ISLOGIN;
 import info.linsword20.todo.service.task.TaskService;
 
 import java.sql.Timestamp;
@@ -16,9 +18,10 @@ import org.apache.struts2.ServletActionContext;
  * @author Jason
  * 
  */
-@SuppressWarnings("serial")
+
 public class SaveTaskAction extends BaseAction
 {
+	private static final long serialVersionUID = 1L;
 	private TaskService taskService;
 
 	public TaskService getTaskService()
@@ -31,7 +34,8 @@ public class SaveTaskAction extends BaseAction
 		this.taskService = taskService;
 	}
 
-	@Override
+	@Override 
+	@UserAccessAnnotation(isLogin = ISLOGIN.YES)
 	public String execute() throws Exception
 	{
 		HttpServletRequest request = ServletActionContext.getRequest();

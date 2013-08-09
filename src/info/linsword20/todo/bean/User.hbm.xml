@@ -13,5 +13,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<property name="password" column="password" type="string"></property>
 		<property name="wid" column="wid" type="string"></property>
 		<property name="email" column="email" type="string"></property>
+		<property name="role" column="role" type="string"></property>
+		
+		
 	</class>
 </hibernate-mapping>

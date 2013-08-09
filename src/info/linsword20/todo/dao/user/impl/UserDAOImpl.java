@@ -47,4 +47,37 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO
 		return 0;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean findByUsername(String username)
+	{
+		List user = this.getHibernateTemplate().find("from User u where u.username=?", username);
+		if(user.size() > 0)
+			return true;
+		return false;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean findByEmail(String email)
+	{
+		List user = this.getHibernateTemplate().find("from User u where u.email=?", email);
+		if(user.size() > 0)
+			return true;
+		return false;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean findByWid(String wid)
+	{
+		List user = this.getHibernateTemplate().find("from User u where u.wid=?", wid);
+		if(user.size() > 0)
+			return true;
+		return false;
+	}
+	
+	@Override
+	public void saveUser(User user)
+	{
+		this.getHibernateTemplate().save(user);
+	}
 }

@@ -1,6 +1,8 @@
 package info.linsword20.todo.action.task;
 
 import info.linsword20.todo.action.BaseAction;
+import info.linsword20.todo.annotation.UserAccessAnnotation;
+import info.linsword20.todo.myenum.ISLOGIN;
 import info.linsword20.todo.service.task.TaskService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,7 @@ public class MarkTaskAction extends BaseAction
 	}
 
 	@Override
+	@UserAccessAnnotation(isLogin = ISLOGIN.YES)
 	public String execute() throws Exception
 	{
 		HttpServletRequest request = ServletActionContext.getRequest();

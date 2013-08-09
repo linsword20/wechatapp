@@ -10,7 +10,7 @@ public class Task
 
 	private byte flag = 0;
 
-	private int user_id = 1;
+	private int user_id;
 
 	private Timestamp startTime;
 

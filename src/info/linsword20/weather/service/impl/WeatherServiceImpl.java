@@ -4,7 +4,9 @@ import info.linsword20.weather.bean.WeatherInfo;
 import info.linsword20.weather.dao.CityInfoDAO;
 import info.linsword20.weather.service.WeatherService;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.SimpleDateFormat;
@@ -45,15 +47,13 @@ public class WeatherServiceImpl implements WeatherService
 		URL url = new URL("http://m.weather.com.cn/data/" + code + ".html");
 		URLConnection conn = url.openConnection();
 		InputStream inStream = conn.getInputStream();
-		
+		BufferedReader br = new BufferedReader(new InputStreamReader(inStream,"utf-8"));
 		StringBuffer sb = new StringBuffer();
-		byte[] buffer = new byte[200];
-		int len = 0;
-		while (-1 != (len = inStream.read(buffer, 0, 200)))
+		String data = null;
+		while((data = br.readLine()) != null)
 		{
-			sb.append(new String(buffer, 0, len, "utf-8"));
+			sb.append(data);
 		}
-
 		return sb.toString();
 	}
 

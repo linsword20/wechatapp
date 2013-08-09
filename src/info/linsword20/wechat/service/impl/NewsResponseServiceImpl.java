@@ -78,7 +78,17 @@ public class NewsResponseServiceImpl implements NewsResponseService
 					"Float的二进制表示").setPicUrl(
 					"http://blog.linsword20.info/media/images/float.jpg")
 					.setUrl("http://blog.linsword20.info/2013/03/data-type-short/"));
-			newsRespMsg.setArticleCount(1);
+			items.add(new NewsItem().setDescription(
+			"这两天研究《程序员面试宝典》的时候，碰到一道关于C/C++中float的题:").setTitle(
+			"Float的二进制表示").setPicUrl(
+			"http://blog.linsword20.info/media/images/float.jpg")
+			.setUrl("http://blog.linsword20.info/2013/03/data-type-short/"));
+			items.add(new NewsItem().setDescription(
+			"这两天研究《程序员面试宝典》的时候，碰到一道关于C/C++中float的题:").setTitle(
+			"Float的二进制表示").setPicUrl(
+			"http://blog.linsword20.info/media/images/float.jpg")
+			.setUrl("http://blog.linsword20.info/2013/03/data-type-short/"));
+			newsRespMsg.setArticleCount(3);
 
 		}
 
