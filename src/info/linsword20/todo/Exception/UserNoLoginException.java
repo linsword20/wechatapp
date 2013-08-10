@@ -1,12 +1,12 @@
 package info.linsword20.todo.Exception;
 
-public class NoPermissionException extends Exception
+public class UserNoLoginException extends Exception
 {
 	private static final long serialVersionUID = 1L;
-	public NoPermissionException(){
+	public UserNoLoginException(){
         super();
     }
-    public NoPermissionException(String msg){
+    public UserNoLoginException(String msg){
         super(msg);
     }
 }

@@ -3,6 +3,7 @@ package info.linsword20.todo.service.user.impl;
 import info.linsword20.todo.bean.User;
 import info.linsword20.todo.dao.user.UserDAO;
 import info.linsword20.todo.myenum.ISLOGIN;
+import info.linsword20.todo.myenum.ROLE;
 import info.linsword20.todo.service.user.UserService;
 import info.linsword20.wechat.util.SHA1;
 
@@ -50,6 +51,17 @@ public class UserServiceImpl implements UserService
 			return ISLOGIN.YES;
 		}
 	}
+	@Override
+	public ROLE getRole()
+	{
+		Map<String, Object> map = ServletActionContext.getContext().getSession();
+
+		User user = (User) map.get("user");
+		
+		ROLE role = Enum.valueOf(ROLE.class, user.getRole());
+		
+		return role;
+	}
 	
 	@Override
 	public Map<String, String> isExist(String username, String email, String wid)
@@ -84,6 +96,19 @@ public class UserServiceImpl implements UserService
 	public List<User> listAllUser()
 	{
 		return this.userDao.findAll();
+	}
+	
+	@Override
+	public void removeUser(User user)
+	{
+		this.userDao.deleteUser(user);
+	}
+	@Override
+	public void updateUser(int id, String role)
+	{
+		User user = this.userDao.getUserById(id);
+		user.setRole(role);
+		this.userDao.updateUser(user);
 	}
 	
 }

@@ -2,6 +2,7 @@ package info.linsword20.todo.service.user;
 
 import info.linsword20.todo.bean.User;
 import info.linsword20.todo.myenum.ISLOGIN;
+import info.linsword20.todo.myenum.ROLE;
 
 import java.util.List;
 import java.util.Map;
@@ -17,4 +18,11 @@ public interface UserService
 	public void saveUser(User user);
 	
 	public List<User> listAllUser();
+	
+	public void removeUser(User user);
+	
+	public ROLE getRole();
+	
+	public void updateUser(int id, String role);
+
 }

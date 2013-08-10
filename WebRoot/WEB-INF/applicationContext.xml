@@ -1,19 +1,14 @@
- <beans xmlns="http://www.springframework.org/schema/beans"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
- xmlns:p="http://www.springframework.org/schema/p"
- xmlns:aop="http://www.springframework.org/schema/aop"
- xmlns:context="http://www.springframework.org/schema/context"
- xmlns:tx="http://www.springframework.org/schema/tx"
- xmlns:cache="http://www.springframework.org/schema/cache"
- xsi:schemaLocation="
-   http://www.springframework.org/schema/beans 
-   http://www.springframework.org/schema/beans/spring-beans.xsd 
-   http://www.springframework.org/schema/cache 
-   http://www.springframework.org/schema/cache/spring-cache.xsd 
-   http://www.springframework.org/schema/tx 
-   http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
-   http://www.springframework.org/schema/aop 
-   http://www.springframework.org/schema/aop/spring-aop-3.1.xsd"> 
+<beans xmlns="http://www.springframework.org/schema/beans"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xmlns:aop="http://www.springframework.org/schema/aop"  
+        xmlns:tx="http://www.springframework.org/schema/tx"  
+        xmlns:context="http://www.springframework.org/schema/context"  
+        xsi:schemaLocation="  
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 
@@ -149,8 +144,13 @@
 		<property name="userService" ref="userService"></property>
 	</bean>
 	
+	<bean id="removeUserAction" class="info.linsword20.todo.action.user.RemoveUserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
 	
-	
+	<bean id="alterUserAction" class="info.linsword20.todo.action.user.AlterUserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
 	
 	
 	

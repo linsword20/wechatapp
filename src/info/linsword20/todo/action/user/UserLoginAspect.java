@@ -1,9 +1,11 @@
 package info.linsword20.todo.action.user;
 
-import info.linsword20.todo.Exception.NoPermissionException;
+import info.linsword20.todo.Exception.AdminNoLoginException;
+import info.linsword20.todo.Exception.UserNoLoginException;
 import info.linsword20.todo.action.BaseAction;
 import info.linsword20.todo.annotation.UserAccessAnnotation;
 import info.linsword20.todo.myenum.ISLOGIN;
+import info.linsword20.todo.myenum.ROLE;
 import info.linsword20.todo.service.user.UserService;
 
 import org.aspectj.lang.annotation.Aspect;
@@ -38,9 +40,24 @@ public class UserLoginAspect extends BaseAction
 	{
 		ISLOGIN isLogin = userAccessAnnotation.isLogin();
 
+		ROLE role = userAccessAnnotation.authority();
+		//未登录
 		if (!this.userService.isLogin().equals(isLogin))
 		{
-			throw new NoPermissionException(getText("user_no_permission_error"));
+			if(role.equals(ROLE.USER)){//用户登录
+				throw new UserNoLoginException(getText("user_no_login_error"));
+			}
+			else{//管理员登录
+				throw new AdminNoLoginException(getText("admin_no_login_error"));
+			}			
+		}
+		//已登录
+		else
+		{	//需要管理员权限执行，但session中用户没有admin角色
+			if(role.equals(ROLE.ADMIN) && !this.userService.getRole().equals(role))
+			{
+				throw new AdminNoLoginException(getText("admin_no_login_error"));
+			}
 		}
 	}
 }

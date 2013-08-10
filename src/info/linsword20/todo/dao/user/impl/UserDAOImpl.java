@@ -103,4 +103,14 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO
 	{
 		this.getHibernateTemplate().saveOrUpdate(user);		
 	}
+	@Override
+	public void deleteUser(User user)
+	{
+		this.getHibernateTemplate().delete(user);
+	}
+	@Override
+	public User getUserById(int id)
+	{
+		return this.getHibernateTemplate().get(User.class, id);
+	}
 }

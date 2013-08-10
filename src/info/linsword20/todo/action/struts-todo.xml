@@ -8,17 +8,20 @@
 		============================= User部分 =================================
 	-->
 	<package name="struts-user" extends="struts-default">
-		
+
 		<global-results>
-			<result name="loginerror" type="redirect">/user.html</result>
+			<result name="userloginerror" type="redirect">/user.html</result>
+			<result name="adminloginerror" type="redirect">/admin.html</result>
 		</global-results>
 
 		<global-exception-mappings>
 			<exception-mapping
-				exception="info.linsword20.todo.Exception.NoPermissionException"
-				result="loginerror" />
+				exception="info.linsword20.todo.Exception.UserNoLoginException"
+				result="userloginerror" />
+			<exception-mapping result="adminloginerror"
+				exception="info.linsword20.todo.Exception.AdminNoLoginException"></exception-mapping>
 		</global-exception-mappings>
-		
+
 
 		<!-- 注册页面 -->
 		<action name="register" class="registerAction">
@@ -33,19 +36,25 @@
 		<!-- 用户登录 -->
 		<action name="user*" class="userLoginAction" method="{1}">
 			<result name="input">/WEB-INF/pages/user/login.jsp</result>
-			<result name="success" type="redirect">/list.html</result>          
+			<result name="success" type="redirect">/list.html</result>
 		</action>
-		
-		
+
+
 		<action name="admin*" class="adminLoginAction" method="{1}">
 			<result name="input">/WEB-INF/pages/admin/login.jsp</result>
-			<result name="success" type="redirect">/manage.html</result>  
+			<result name="success" type="redirect">/manage.html</result>
 		</action>
-		
+
 		<action name="manage" class="listUserAction">
 			<result name="success">/WEB-INF/pages/admin/users.jsp</result>
 		</action>
-		
+
+		<action name="remove" class="removeUserAction">
+			<result name="success">/manage.html</result>
+		</action>
+
+		<action name="change*" class="alterUserAction" method="{1}"></action>
+
 	</package>
 
 
@@ -69,7 +78,7 @@
 		<action name="add" class="addTaskAction">
 			<result name="success">/WEB-INF/pages/add.jsp</result>
 		</action>
-		
+
 		<!-- 标记Task -->
 		<action name="mark" class="markTaskAction">
 			<result name="error" type="redirect">/list.html</result>

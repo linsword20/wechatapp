@@ -1,6 +1,6 @@
 package info.linsword20.todo.action.user;
 
-import info.linsword20.todo.Exception.NoPermissionException;
+import info.linsword20.todo.Exception.UserNoLoginException;
 import info.linsword20.todo.action.BaseAction;
 import info.linsword20.todo.annotation.UserAccessAnnotation;
 import info.linsword20.todo.myenum.ISLOGIN;
@@ -40,7 +40,7 @@ public class AdminLoginAspect extends BaseAction
 
 		if (!this.userService.isLogin().equals(isLogin))
 		{
-			throw new NoPermissionException(getText("user_no_permission_error"));
+			throw new UserNoLoginException(getText("user_no_permission_error"));
 		}
 	}
 }

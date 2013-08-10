@@ -1,7 +1,15 @@
-﻿//删除确认
+﻿//删除Task确认
 del = function(id) {
 	if (confirm("Are you sure?")) {
 		window.location.href = "delete.html?task.id=" + id;
+	}
+	return false;
+}
+
+//删除用户确认
+rem = function(id) {
+	if (confirm("Are you sure?")) {
+		window.location.href = "remove.html?user.id=" + id;
 	}
 	return false;
 }
