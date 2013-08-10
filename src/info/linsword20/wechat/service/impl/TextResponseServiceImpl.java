@@ -69,7 +69,8 @@ public class TextResponseServiceImpl implements TextResponseService
 			stringBuffer.delete(0, stringBuffer.length());
 			stringBuffer.append("欢迎使用待办事项管理系统\n使用方法:\n");
 			stringBuffer.append("命令:task+操作+[id]+[#]+[内容]:\n");
-			stringBuffer.append("检查待办: task+check\n\n");
+			stringBuffer.append("关联微信：taskregusername:pwd\n\n");
+			stringBuffer.append("检查待办: taskcheck\n\n");
 			stringBuffer.append("添加待办: taskaddreading\n\n");
 			stringBuffer.append("标记已完成: taskdone3\n\n");
 			stringBuffer.append("修改某待办: taskalter4#buy pen \n\n");
@@ -180,6 +181,36 @@ public class TextResponseServiceImpl implements TextResponseService
 					stringBuffer.append("回复\"?\"获取主菜单");
 				}
 
+			}
+			
+			else if(content.startsWith("reg"))
+			{
+				content = content.substring(3);
+				String[] tmp = { "", "" };
+				if (content.contains(":") && !content.startsWith(":"))
+				{
+					tmp = content.split(":");
+					String username = tmp[0];
+					String password = tmp[1];
+					
+					if(this.task4WechatService.userExist(username, password))
+					{
+						this.task4WechatService.registerWid(username, ToUserName);
+						stringBuffer.append("关联微信号成功\n");
+					}
+					else{
+						stringBuffer.append("用户不存在\n");
+						stringBuffer.append("请检查您的输入,谢谢\n");
+						stringBuffer.append("回复\"3\"获取命令帮助\n");
+						stringBuffer.append("回复\"?\"获取主菜单");
+					}
+					
+				}
+				else{
+					stringBuffer.append("您好,请检查您的输入,谢谢\n");
+					stringBuffer.append("回复\"3\"获取命令帮助\n");
+					stringBuffer.append("回复\"?\"获取主菜单");
+				}
 			}
 			// Task系统语法错误回应
 			else

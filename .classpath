@@ -24,7 +24,7 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/com.springsource.org.apache.commons.httpclient-3.1.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/com.springsource.org.apache.commons.logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/com.springsource.org.apache.log4j-1.2.15.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar" sourcepath="C:/Users/Jason/Desktop/aspectj-1.6.8-src/aspectjweaver1.6.8-src.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/com.springsource.org.codehaus.jackson.mapper-1.0.0.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.aop-3.0.1.RELEASE-A.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/org.springframework.asm-3.0.1.RELEASE-A.jar"/>

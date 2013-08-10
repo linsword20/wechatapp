@@ -5,7 +5,7 @@ import info.linsword20.todo.bean.User;
 import info.linsword20.todo.service.user.UserService;
 
 @SuppressWarnings("serial")
-public class UserLoginAction extends BaseAction
+public class AdminrLoginAction extends BaseAction
 {
 	private UserService userService;
 	private User user;
@@ -30,7 +30,6 @@ public class UserLoginAction extends BaseAction
 		this.user = user;
 	}
 
-	
 	@Override
 	public String execute() throws Exception
 	{
@@ -41,7 +40,7 @@ public class UserLoginAction extends BaseAction
 	{
 		User loginUser = this.userService.login(user.getUsername(), user
 				.getPassword());
-		if (null != loginUser)
+		if (null != loginUser && loginUser.getRole().equals("ADMIN"))
 		{
 			session.put("user", loginUser);
 		}

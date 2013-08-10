@@ -19,9 +19,9 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+		<style type="text/css">
+			.errorMessage {color: red;}
+		</style>
 
 	</head>
 
@@ -32,6 +32,7 @@
 			<h2>
 				系统登录
 			</h2>
+			<s:actionerror/>
 			<s:form action="userlogin">
 				<s:textfield name="user.username" label="用户名" size="20"></s:textfield>
 				<s:password name="user.password" label="密码" size="20"></s:password>

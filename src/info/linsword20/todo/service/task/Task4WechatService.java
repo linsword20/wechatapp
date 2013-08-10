@@ -15,4 +15,8 @@ public interface Task4WechatService
 	public String findById(int id);
 
 	public boolean hasTaskOfId(int id);
+	
+	public boolean userExist(String username, String password);
+	
+	public void registerWid(String username, String wid);
 }

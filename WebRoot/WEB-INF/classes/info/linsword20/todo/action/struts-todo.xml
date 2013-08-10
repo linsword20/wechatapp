@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!--
+		============================= User部分 =================================
+	-->
+	<package name="struts-user" extends="struts-default">
+		
+		<global-results>
+			<result name="loginerror" type="redirect">/user.html</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping
+				exception="info.linsword20.todo.Exception.NoPermissionException"
+				result="loginerror" />
+		</global-exception-mappings>
+		
+
+		<!-- 注册页面 -->
+		<action name="register" class="registerAction">
+			<result name="success">/WEB-INF/pages/user/register.jsp</result>
+		</action>
+
+		<!-- 注册 -->
+		<action name="userRegister" class="userRegisterAction">
+			<result name="input">/WEB-INF/pages/user/register.jsp</result>
+			<result name="success">/WEB-INF/pages/user/success.jsp</result>
+		</action>
+		<!-- 用户登录 -->
+		<action name="user*" class="userLoginAction" method="{1}">
+			<result name="input">/WEB-INF/pages/user/login.jsp</result>
+			<result name="success" type="redirect">/list.html</result>          
+		</action>
+		
+		
+		<action name="admin*" class="adminLoginAction" method="{1}">
+			<result name="input">/WEB-INF/pages/admin/login.jsp</result>
+			<result name="success" type="redirect">/manage.html</result>  
+		</action>
+		
+		<action name="manage" class="listUserAction">
+			<result name="success">/WEB-INF/pages/admin/users.jsp</result>
+		</action>
+		
+	</package>
+
+
+	<!--
+		============================= task部分 =================================
+	-->
+	<package name="struts-task" extends="struts-user">
+
+		<!-- 保存Task -->
+		<action name="save" class="saveTaskAction">
+			<result name="success" type="redirect">/list.html</result>
+		</action>
+
+		<!-- 列出Task -->
+		<action name="list*" class="listTaskAction">
+			<param name="opt">{1}</param>
+			<result name="success">/WEB-INF/pages/list.jsp</result>
+		</action>
+
+		<!-- 增加页面 -->
+		<action name="add" class="addTaskAction">
+			<result name="success">/WEB-INF/pages/add.jsp</result>
+		</action>
+		
+		<!-- 标记Task -->
+		<action name="mark" class="markTaskAction">
+			<result name="error" type="redirect">/list.html</result>
+		</action>
+
+		<!-- 删除Task -->
+		<action name="delete" class="deleteTaskAction">
+			<result name="success" type="redirect">/list.html</result>
+		</action>
+
+		<!-- 修改Task -->
+		<action name="alter" class="alterTaskAction">
+			<result name="error" type="redirect">/list.html</result>
+		</action>
+
+		<!-- 保存修改Task -->
+		<action name="update" class="updateTaskAction">
+		</action>
+	</package>
+
+</struts>

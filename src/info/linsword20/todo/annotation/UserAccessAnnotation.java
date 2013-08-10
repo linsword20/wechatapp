@@ -12,5 +12,5 @@ import info.linsword20.todo.myenum.*;
 public @interface UserAccessAnnotation
 {
 	ISLOGIN isLogin();
-	//ROLE authority() default ROLE.USER;
+	ROLE authority() default ROLE.USER;
 }

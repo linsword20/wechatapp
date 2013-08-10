@@ -4,10 +4,9 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<!-- 用户管理 -->
-	<include file="info/linsword20/todo/action/struts-user.xml" />
 	<!-- 待办事项 -->
-	<include file="info/linsword20/todo/action/struts-task.xml" />
+	<include file="info/linsword20/todo/action/struts-todo.xml" />
+	
 	<!-- 微信接口部分 -->
-	<include file="info/linsword20/wechat/action/struts-wechat.xml" />
+	<include file="info/linsword20/wechat/action/struts-wechat.xml" />	
 </struts>

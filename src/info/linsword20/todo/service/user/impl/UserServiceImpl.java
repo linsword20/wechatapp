@@ -7,6 +7,7 @@ import info.linsword20.todo.service.user.UserService;
 import info.linsword20.wechat.util.SHA1;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.struts2.ServletActionContext;
@@ -79,5 +80,10 @@ public class UserServiceImpl implements UserService
 		this.userDao.saveUser(user);
 	}
 	
+	@Override
+	public List<User> listAllUser()
+	{
+		return this.userDao.findAll();
+	}
 	
 }

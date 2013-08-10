@@ -1,9 +1,11 @@
 package info.linsword20.todo.service.task.impl;
 
 import info.linsword20.todo.bean.Task;
+import info.linsword20.todo.bean.User;
 import info.linsword20.todo.dao.task.TaskDAO;
 import info.linsword20.todo.dao.user.UserDAO;
 import info.linsword20.todo.service.task.Task4WechatService;
+import info.linsword20.wechat.util.SHA1;
 
 import java.util.Iterator;
 import java.util.List;
@@ -108,6 +110,21 @@ public class Task4WechatServiceImpl implements Task4WechatService
 		if (this.taskDao.findById(id).getUser_id() == this.userDao
 				.getIdByWid(wid)) return false;
 		return true;
-
+	}
+	@Override
+	public boolean userExist(String username, String password)
+	{
+		password = new SHA1().getDigestOfString(password.getBytes()).toLowerCase();
+		User user = this.userDao.login(username, password);
+		if(null != user)
+			return true;
+		return false;
+	}
+	@Override
+	public void registerWid(String username, String wid)
+	{
+		User user = this.userDao.getUserByName(username);
+		user.setWid(wid);
+		this.userDao.updateUser(user);	
 	}
 }

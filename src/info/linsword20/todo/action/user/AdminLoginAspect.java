@@ -11,7 +11,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
 @Aspect
-public class UserLoginAspect extends BaseAction
+public class AdminLoginAspect extends BaseAction
 {
 	private static final long serialVersionUID = 1L;
 
