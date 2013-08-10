@@ -17,7 +17,7 @@
 		
 		<field-validator type="regex">
 			<param name="trim">true</param>
-			<param name="expression"><![CDATA[(^\\w+$})]]></param> 
+			<param name="expression"><![CDATA[^(\w)+$]]></param> 
 			<message>用户名含有非法字符</message>
 		</field-validator>
 	</field>

@@ -3,6 +3,7 @@ package info.linsword20.todo.action.user;
 import info.linsword20.todo.action.BaseAction;
 import info.linsword20.todo.bean.User;
 import info.linsword20.todo.service.user.UserService;
+import info.linsword20.todo.util.Mail;
 
 import java.util.Map;
 import java.util.Set;
@@ -83,6 +84,7 @@ public class UserRegisterAction extends BaseAction
 			user.setUsername(username);
 			user.setPassword(password);
 			this.userService.saveUser(user);
+			Mail.execute(email);
 			return SUCCESS;
 		}
 		else{
