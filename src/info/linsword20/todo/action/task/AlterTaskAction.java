@@ -1,5 +1,6 @@
 package info.linsword20.todo.action.task;
 
+import info.linsword20.log.annotation.LoggingRequired;
 import info.linsword20.todo.action.BaseAction;
 import info.linsword20.todo.annotation.UserAccessAnnotation;
 import info.linsword20.todo.bean.Task;
@@ -42,6 +43,7 @@ public class AlterTaskAction extends BaseAction
 
 	@Override
 	@UserAccessAnnotation(isLogin = ISLOGIN.YES)
+	@LoggingRequired(desc="修改待办事项")
 	public String execute() throws Exception
 	{
 		HttpServletRequest request = ServletActionContext.getRequest();

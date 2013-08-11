@@ -39,21 +39,30 @@
 			<result name="success" type="redirect">/list.html</result>
 		</action>
 
-
+		<!-- admin登录 -->
 		<action name="admin*" class="adminLoginAction" method="{1}">
 			<result name="input">/WEB-INF/pages/admin/login.jsp</result>
 			<result name="success" type="redirect">/manage.html</result>
 		</action>
-
+		
+		<!-- 用户管理首页 -->
 		<action name="manage" class="listUserAction">
 			<result name="success">/WEB-INF/pages/admin/users.jsp</result>
 		</action>
-
+	
+		<!-- 删除用户 -->
 		<action name="remove" class="removeUserAction">
 			<result name="success">/manage.html</result>
 		</action>
 
+		<!-- 修改用户权限 -->
 		<action name="change*" class="alterUserAction" method="{1}"></action>
+
+		<!-- 日志查看 -->
+		<action name="log" class="showLogAction">
+			<result name="success">/WEB-INF/pages/admin/log.jsp</result>
+		</action>
+
 
 	</package>
 

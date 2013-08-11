@@ -1,16 +1,14 @@
-<beans xmlns="http://www.springframework.org/schema/beans"  
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
-        xmlns:aop="http://www.springframework.org/schema/aop"  
-        xmlns:tx="http://www.springframework.org/schema/tx"  
-        xmlns:context="http://www.springframework.org/schema/context"  
-        xsi:schemaLocation="  
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="  
             http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
             http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd  
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  
             http://www.springframework.org/schema/context 
             http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<aop:aspectj-autoproxy proxy-target-class="true" />
 
 
 	<!-- 数据库连接池 -->
@@ -45,6 +43,7 @@
 				<value>info/linsword20/todo/bean/Task.hbm.xml</value>
 				<value>info/linsword20/todo/bean/User.hbm.xml</value>
 				<value>info/linsword20/weather/bean/CityInfo.hbm.xml</value>
+				<value>info/linsword20/log/bean/Log.hbm.xml</value>
 			</list>
 		</property>
 
@@ -109,7 +108,8 @@
 		<property name="taskService" ref="taskService"></property>
 	</bean>
 
-	<bean id="addTaskAction" class="info.linsword20.todo.action.task.AddTaskAction" scope="prototype"></bean>
+	<bean id="addTaskAction" class="info.linsword20.todo.action.task.AddTaskAction"
+		scope="prototype"></bean>
 
 	<!--
 		***************************************************************用户管理*****************************************************
@@ -128,39 +128,70 @@
 		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
-	
-	<bean id="adminLoginAction" class="info.linsword20.todo.action.user.AdminrLoginAction" scope="prototype">
+
+	<bean id="adminLoginAction" class="info.linsword20.todo.action.user.AdminrLoginAction"
+		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
-	
-	<bean id="userRegisterAction" class="info.linsword20.todo.action.user.UserRegisterAction" scope="prototype">
+
+	<bean id="userRegisterAction" class="info.linsword20.todo.action.user.UserRegisterAction"
+		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
-	
-	<bean id="registerAction" class="info.linsword20.todo.action.user.RegisterAction" scope="singleton"></bean>
-	
-	
-	<bean id="listUserAction" class="info.linsword20.todo.action.user.ListUserAction" scope="prototype">
+
+	<bean id="registerAction" class="info.linsword20.todo.action.user.RegisterAction"
+		scope="singleton"></bean>
+
+
+	<bean id="listUserAction" class="info.linsword20.todo.action.user.ListUserAction"
+		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
-	
-	<bean id="removeUserAction" class="info.linsword20.todo.action.user.RemoveUserAction" scope="prototype">
+
+	<bean id="removeUserAction" class="info.linsword20.todo.action.user.RemoveUserAction"
+		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
-	
-	<bean id="alterUserAction" class="info.linsword20.todo.action.user.AlterUserAction" scope="prototype">
+
+	<bean id="alterUserAction" class="info.linsword20.todo.action.user.AlterUserAction"
+		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
-	
-	
-	
-	<bean id="userLoginAspect" class="info.linsword20.todo.action.user.UserLoginAspect" scope="prototype">
+
+
+
+	<bean id="userLoginAspect" class="info.linsword20.todo.action.user.UserLoginAspect"
+		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
-	
-	<bean id="AdminLoginAspect" class="info.linsword20.todo.action.user.AdminLoginAspect" scope="prototype">
+
+	<bean id="AdminLoginAspect" class="info.linsword20.todo.action.user.AdminLoginAspect"
+		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
+	<!--
+		***************************************************************日志***********************************************
+	-->
+
+		<bean id="logDao" class="info.linsword20.log.dao.LogDAOImpl" scope="singleton">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+		</bean>
+
+
+		<bean id="logAspect" class="info.linsword20.log.action.LogAspect" scope="prototype">
+			<property name="logDao" ref="logDao"></property>	
+		</bean>
+
+		<bean id="showLogAction" class="info.linsword20.log.action.ShowLogAction" scope="prototype">
+			<property name="logDao" ref="logDao"></property>
+		</bean>
+
+
+
+
+
+
+
 
 
 

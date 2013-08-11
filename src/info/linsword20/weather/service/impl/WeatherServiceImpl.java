@@ -99,7 +99,6 @@ public class WeatherServiceImpl implements WeatherService
 			return map;
 		}
 	}
-
 	public Map<Integer, WeatherInfo> excute(String city)
 	{
 		try

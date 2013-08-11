@@ -1,5 +1,6 @@
 package info.linsword20.todo.service.task.impl;
 
+import info.linsword20.log.annotation.WechatLogging;
 import info.linsword20.todo.bean.Task;
 import info.linsword20.todo.bean.User;
 import info.linsword20.todo.dao.task.TaskDAO;
@@ -38,7 +39,6 @@ public class Task4WechatServiceImpl implements Task4WechatService
 	@Override
 	public void saveTask(String content, String wid)
 	{
-
 		Task task = new Task();
 		task.setContent(content);
 		task.setUser_id(this.userDao.getIdByWid(wid));
@@ -46,6 +46,7 @@ public class Task4WechatServiceImpl implements Task4WechatService
 	}
 
 	@Override
+	@WechatLogging(desc="微信：查看待办事项")
 	public String listAllTask(String wid)
 	{
 		StringBuffer contents = new StringBuffer("");
@@ -65,6 +66,7 @@ public class Task4WechatServiceImpl implements Task4WechatService
 	}
 
 	@Override
+	@WechatLogging(desc="微信：删除待办事项")
 	public boolean deleteTask(int id, String wid)
 	{
 		Task task = new Task();
@@ -75,6 +77,7 @@ public class Task4WechatServiceImpl implements Task4WechatService
 	}
 
 	@Override
+	@WechatLogging(desc="微信：更新待办事项")
 	public boolean updateTask(int id, String wid, String content)
 	{
 		if (authority(id, wid)) return false;
@@ -85,6 +88,7 @@ public class Task4WechatServiceImpl implements Task4WechatService
 	}
 
 	@Override
+	@WechatLogging(desc="微信：标记完成待办")
 	public boolean markTask(int id, String wid)
 	{
 		if (authority(id, wid)) return false;
@@ -121,6 +125,7 @@ public class Task4WechatServiceImpl implements Task4WechatService
 		return false;
 	}
 	@Override
+	@WechatLogging(desc="微信：关联用户")
 	public void registerWid(String username, String wid)
 	{
 		User user = this.userDao.getUserByName(username);

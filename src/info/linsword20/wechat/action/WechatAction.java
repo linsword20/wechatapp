@@ -111,7 +111,7 @@ public class WechatAction extends ActionSupport
 				receiveXml.append(str);
 			}
 			
-			System.out.println(receiveXml);
+	//		System.out.println(receiveXml);
 			
 			/*
 			 * 消息处理
@@ -119,7 +119,7 @@ public class WechatAction extends ActionSupport
 			String responseXml = this.msgProcessService.exectue(receiveXml
 					.toString());
 
-			System.out.println(responseXml);
+	//		System.out.println(responseXml);
 			
 			//回复消息
 			HttpServletResponse response = ServletActionContext.getResponse();

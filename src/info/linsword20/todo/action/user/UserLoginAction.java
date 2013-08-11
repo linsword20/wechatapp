@@ -1,5 +1,7 @@
 package info.linsword20.todo.action.user;
 
+import info.linsword20.log.annotation.LoggingRequired;
+import info.linsword20.log.annotation.LogoutLogging;
 import info.linsword20.todo.action.BaseAction;
 import info.linsword20.todo.bean.User;
 import info.linsword20.todo.service.user.UserService;
@@ -36,7 +38,7 @@ public class UserLoginAction extends BaseAction
 	{
 		return INPUT;
 	}
-
+	@LoggingRequired(desc="用户登录")
 	public String login() throws Exception
 	{
 		User loginUser = this.userService.login(user.getUsername(), user
@@ -52,7 +54,7 @@ public class UserLoginAction extends BaseAction
 		}
 		return SUCCESS;
 	}
-
+	@LogoutLogging(desc="用户注销")
 	public String logout() throws Exception
 	{
 		if (session != null && session.size() > 0)

@@ -1,5 +1,6 @@
 package info.linsword20.todo.action.user;
 
+import info.linsword20.log.annotation.LoggingRequired;
 import info.linsword20.todo.action.BaseAction;
 import info.linsword20.todo.annotation.UserAccessAnnotation;
 import info.linsword20.todo.bean.User;
@@ -27,6 +28,7 @@ public class ListUserAction extends BaseAction
 
 	@Override
 	@UserAccessAnnotation(isLogin=ISLOGIN.YES,authority=ROLE.ADMIN)
+	@LoggingRequired(desc="查看用户")
 	public String execute() throws Exception
 	{
 		List<User> users = this.userService.listAllUser();

@@ -22,6 +22,13 @@
 		<style type="text/css">
 			.errorMessage {color: red;}
 		</style>
+		<SCRIPT type="text/javascript">
+window.onload = function()
+{
+	var input = document.getElementById("username");
+	input.focus();
+}
+</SCRIPT>
 
 	</head>
 
@@ -34,7 +41,7 @@
 			</h2>
 			<s:actionerror/>
 			<s:form action="userlogin">
-				<s:textfield name="user.username" label="用户名" size="20"></s:textfield>
+				<s:textfield name="user.username" label="用户名" size="20" id="username"></s:textfield>
 				<s:password name="user.password" label="密码" size="20"></s:password>
 				<s:submit value="登录"></s:submit>
 			</s:form>

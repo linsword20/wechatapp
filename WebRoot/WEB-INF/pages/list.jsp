@@ -19,15 +19,15 @@
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
 		<style type="text/css">
-<!--
-a:hover {
-	color: red;
-}
+		<!--
+			a:hover {
+				color: red;
+			}
 
-a:link {
-	text-decoration: none;
-}
--->
+			a:link {
+				text-decoration: none;
+			}
+		-->
 </style>
 		<script type="text/javascript" src="./js/markAjax.js">
 </script>
