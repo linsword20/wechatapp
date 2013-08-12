@@ -4,5 +4,5 @@
 *.jar
 *.war
 *.ear
-sql\schema.sql
-src\info\linsword20\todo\util\Mail.java
+sql/schema.sql
+src/info/linsword20/todo/util/Mail.java
