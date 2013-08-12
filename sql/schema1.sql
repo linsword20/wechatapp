@@ -17,6 +17,11 @@ DROP TABLE IF EXISTS user;
   PRIMARY KEY (ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- ----------------------------
+-- Records of `user`
+-- ----------------------------
+INSERT INTO user VALUES(1, 'root', '1f82c942befda29b6ed487a51da199f78fce7f05', 'linsword20@gmail.com','1','ADMIN');
+
 
 -- ----------------------------
 -- Table structure for `tasks`
