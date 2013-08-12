@@ -57,6 +57,75 @@
 			</props>
 		</property>
 	</bean>
+
+	<!-- transactionManager事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!--
+		***************************************************************微信*****************************************************
+	-->
+
+	<!-- 回复Text类型消息处理类 -->
+	<bean id="textResponseService"
+		class="info.linsword20.wechat.service.impl.TextResponseServiceImpl"
+		scope="singleton">
+		<property name="task4WechatService" ref="task4WechatService"></property>
+	</bean>
+
+	<!-- 回复News类型消息处理类 -->
+	<bean id="newsResponseService"
+		class="info.linsword20.wechat.service.impl.NewsResponseServiceImpl"
+		scope="singleton">
+		<property name="weatherService" ref="weacherService"></property>
+	</bean>
+
+	<!-- 消息处理类 -->
+	<bean id="msgProcessService"
+		class="info.linsword20.wechat.service.impl.MsgProcessServiceImpl"
+		scope="singleton">
+		<property name="textResponserService" ref="textResponseService"></property>
+		<property name="newsResponseService" ref="newsResponseService"></property>
+	</bean>
+
+
+	<!-- action -->
+	<bean id="wechataction" class="info.linsword20.wechat.action.WechatAction"
+		scope="prototype">
+		<property name="msgProcessService" ref="msgProcessService"></property>
+	</bean>
+
+	<!--
+		***************************************************************天气查询***********************************************
+	-->
+
+	<!-- 天气查询DAO层 -->
+	<bean id="cityInfoDao" class="info.linsword20.weather.dao.impl.CityInfoDAOImpl"
+		scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- 天气查询Service层 -->
+	<bean id="weacherServiceTarget" class="info.linsword20.weather.service.impl.WeatherServiceImpl"
+		scope="singleton">
+		<property name="cityInfoDao" ref="cityInfoDao"></property>
+	</bean>
+	
+	<bean id="weacherService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="weacherServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+
+
 	<!--
 		***************************************************************待办事项*****************************************************************
 	-->
@@ -69,12 +138,23 @@
 	</bean>
 
 
-
 	<!-- Tasks Service层 -->
 
-	<bean id="taskService" class="info.linsword20.todo.service.task.impl.TaskServiceImpl"
+	<bean id="taskServiceTarget" class="info.linsword20.todo.service.task.impl.TaskServiceImpl"
 		scope="singleton">
 		<property name="taskDao" ref="taskDao"></property>
+	</bean>
+
+	<bean id="taskService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="taskServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+
+		</property>
 	</bean>
 
 
@@ -111,19 +191,58 @@
 	<bean id="addTaskAction" class="info.linsword20.todo.action.task.AddTaskAction"
 		scope="prototype"></bean>
 
+
+
+	<!--
+		*************************************************Task4wechatService层***************************************************
+	-->
+	<bean id="task4WechatServiceTarget"
+		class="info.linsword20.todo.service.task.impl.Task4WechatServiceImpl"
+		scope="singleton">
+		<property name="taskDao" ref="taskDao"></property>
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+
+	<bean id="task4WechatService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="task4WechatServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+
+
 	<!--
 		***************************************************************用户管理*****************************************************
 	-->
+	<!-- 用户DAO层 -->
 	<bean id="userDao" class="info.linsword20.todo.dao.user.impl.UserDAOImpl"
 		scope="singleton">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-	<bean id="userService" class="info.linsword20.todo.service.user.impl.UserServiceImpl"
+	<!-- 用户Service层 -->
+	<bean id="userServiceTarget" class="info.linsword20.todo.service.user.impl.UserServiceImpl"
 		scope="singleton">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
 
+	<bean id="userService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="userServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 用户Action层 -->
 	<bean id="userLoginAction" class="info.linsword20.todo.action.user.UserLoginAction"
 		scope="prototype">
 		<property name="userService" ref="userService"></property>
@@ -159,7 +278,7 @@
 	</bean>
 
 
-
+	<!-- 用户AOP -->
 	<bean id="userLoginAspect" class="info.linsword20.todo.action.user.UserLoginAspect"
 		scope="prototype">
 		<property name="userService" ref="userService"></property>
@@ -169,93 +288,25 @@
 		scope="prototype">
 		<property name="userService" ref="userService"></property>
 	</bean>
+
+
 	<!--
 		***************************************************************日志***********************************************
 	-->
-
-		<bean id="logDao" class="info.linsword20.log.dao.LogDAOImpl" scope="singleton">
-			<property name="sessionFactory" ref="sessionFactory"></property>
-		</bean>
-
-
-		<bean id="logAspect" class="info.linsword20.log.action.LogAspect" scope="prototype">
-			<property name="logDao" ref="logDao"></property>	
-		</bean>
-
-		<bean id="showLogAction" class="info.linsword20.log.action.ShowLogAction" scope="prototype">
-			<property name="logDao" ref="logDao"></property>
-		</bean>
-
-
-
-
-
-
-
-
-
-
-	<!--
-		***************************************************************天气查询***********************************************
-	-->
-
-
-	<bean id="cityInfoDao" class="info.linsword20.weather.dao.impl.CityInfoDAOImpl"
+	<!-- 日志DAO层 -->
+	<bean id="logDao" class="info.linsword20.log.dao.LogDAOImpl"
 		scope="singleton">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
-	<bean id="weacherService" class="info.linsword20.weather.service.impl.WeatherServiceImpl"
-		scope="singleton">
-		<property name="cityInfoDao" ref="cityInfoDao"></property>
-	</bean>
-
-
-	<!--
-		*************************************************Task
-		微信Service层***************************************************
-	-->
-	<bean id="task4WechatService"
-		class="info.linsword20.todo.service.task.impl.Task4WechatServiceImpl"
-		scope="singleton">
-		<property name="taskDao" ref="taskDao"></property>
-		<property name="userDao" ref="userDao"></property>
-	</bean>
-
-
-	<!--
-		***************************************************************微信*****************************************************
-	-->
-
-	<!-- 回复Text类型消息处理类 -->
-	<bean id="textResponseService"
-		class="info.linsword20.wechat.service.impl.TextResponseServiceImpl"
-		scope="singleton">
-		<property name="task4WechatService" ref="task4WechatService"></property>
-	</bean>
-
-	<!-- 回复News类型消息处理类 -->
-	<bean id="newsResponseService"
-		class="info.linsword20.wechat.service.impl.NewsResponseServiceImpl"
-		scope="singleton">
-		<property name="weatherService" ref="weacherService"></property>
-	</bean>
-
-	<!-- 消息处理类 -->
-	<bean id="msgProcessService"
-		class="info.linsword20.wechat.service.impl.MsgProcessServiceImpl"
-		scope="singleton">
-		<property name="textResponserService" ref="textResponseService"></property>
-		<property name="newsResponseService" ref="newsResponseService"></property>
-	</bean>
-
-
-	<!-- action -->
-	<bean id="wechataction" class="info.linsword20.wechat.action.WechatAction"
+	<bean id="logAspect" class="info.linsword20.log.action.LogAspect"
 		scope="prototype">
-		<property name="msgProcessService" ref="msgProcessService"></property>
+		<property name="logDao" ref="logDao"></property>
 	</bean>
 
-
+	<bean id="showLogAction" class="info.linsword20.log.action.ShowLogAction"
+		scope="prototype">
+		<property name="logDao" ref="logDao"></property>
+	</bean>
 
 </beans>
