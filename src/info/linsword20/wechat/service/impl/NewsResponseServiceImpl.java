@@ -74,21 +74,12 @@ public class NewsResponseServiceImpl implements NewsResponseService
 		if ("blog".equals(content))
 		{
 			items.add(new NewsItem().setDescription(
-					"这两天研究《程序员面试宝典》的时候，碰到一道关于C/C++中float的题:").setTitle(
-					"Float的二进制表示").setPicUrl(
-					"http://blog.linsword20.info/media/images/float.jpg")
-					.setUrl("http://blog.linsword20.info/2013/03/data-type-short/"));
-			items.add(new NewsItem().setDescription(
-			"这两天研究《程序员面试宝典》的时候，碰到一道关于C/C++中float的题:").setTitle(
-			"Float的二进制表示").setPicUrl(
-			"http://blog.linsword20.info/media/images/float.jpg")
-			.setUrl("http://blog.linsword20.info/2013/03/data-type-short/"));
-			items.add(new NewsItem().setDescription(
-			"这两天研究《程序员面试宝典》的时候，碰到一道关于C/C++中float的题:").setTitle(
-			"Float的二进制表示").setPicUrl(
-			"http://blog.linsword20.info/media/images/float.jpg")
-			.setUrl("http://blog.linsword20.info/2013/03/data-type-short/"));
-			newsRespMsg.setArticleCount(3);
+					"在编写java代码的时候经常会遇到java.lang.ClassNotFoundExcetpion，它涉及到了java的类加载器概念。").setTitle(
+					"浅析Java类加载器").setPicUrl(
+					"http://blog.linsword20.info/media/images/classloader.jpg")
+					.setUrl("http://blog.linsword20.info/2013/08/Java-ClassLoader/"));
+			
+			newsRespMsg.setArticleCount(1);
 
 		}
 
