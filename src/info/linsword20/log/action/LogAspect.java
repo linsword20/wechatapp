@@ -52,6 +52,7 @@ public class LogAspect extends BaseAction
 	{
 		String desc = loggingRequired.desc();
 		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(!session.containsKey("user")) return;
 		String username = ((User) session.get("user")).getUsername();
 		Timestamp time = new Timestamp(new java.util.Date().getTime());
 		Log log = new Log();
@@ -77,6 +78,7 @@ public class LogAspect extends BaseAction
 	{
 		String desc = logoutLogging.desc();
 		Map<String, Object> session = ActionContext.getContext().getSession();
+		if(!session.containsKey("user")) return;
 		String username = ((User) session.get("user")).getUsername();
 		Timestamp time = new Timestamp(new java.util.Date().getTime());
 		Log log = new Log();
