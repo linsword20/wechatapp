@@ -5,6 +5,7 @@ import info.linsword20.weather.service.WeatherService;
 import info.linsword20.wechat.bean.message.BaseMessage;
 import info.linsword20.wechat.bean.message.NewsItem;
 import info.linsword20.wechat.bean.message.NewsMessage;
+import info.linsword20.wechat.dao.WechatDAO;
 import info.linsword20.wechat.service.NewsResponseService;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public class NewsResponseServiceImpl implements NewsResponseService
 
 	private WeatherService weatherService;
 
+	private WechatDAO wechatDao;
+
 	public WeatherService getWeatherService()
 	{
 		return weatherService;
@@ -25,6 +28,16 @@ public class NewsResponseServiceImpl implements NewsResponseService
 	public void setWeatherService(WeatherService weatherService)
 	{
 		this.weatherService = weatherService;
+	}
+
+	public WechatDAO getWechatDao()
+	{
+		return wechatDao;
+	}
+
+	public void setWechatDao(WechatDAO wechatDao)
+	{
+		this.wechatDao = wechatDao;
 	}
 
 	@Override
@@ -73,14 +86,9 @@ public class NewsResponseServiceImpl implements NewsResponseService
 		}
 		if ("blog".equals(content))
 		{
-			items.add(new NewsItem().setDescription(
-					"在编写java代码的时候经常会遇到java.lang.ClassNotFoundExcetpion，它涉及到了java的类加载器概念。").setTitle(
-					"浅析Java类加载器").setPicUrl(
-					"http://blog.linsword20.info/media/images/classloader.jpg")
-					.setUrl("http://blog.linsword20.info/2013/08/Java-ClassLoader/"));
-			
-			newsRespMsg.setArticleCount(1);
+			items = (ArrayList<NewsItem>) this.wechatDao.getNewsItems();
 
+			newsRespMsg.setArticleCount(5);
 		}
 
 		newsRespMsg.setItems(items);

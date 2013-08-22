@@ -2,18 +2,31 @@
 
 /**
  * 存储图文消息的item内容
+ * 
  * @author Jason
- *
+ * 
  */
 public class NewsItem
 {
+	private int id;
+
 	private String Title = "";
 
-	private String Description ="";
+	private String Description = "";
 
 	private String PicUrl = "";
 
 	private String Url = "";
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 
 	public String getTitle()
 	{
@@ -58,5 +71,5 @@ public class NewsItem
 		Url = url;
 		return this;
 	}
-	
+
 }

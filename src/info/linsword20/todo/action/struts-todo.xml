@@ -80,12 +80,12 @@
 		<!-- 列出Task -->
 		<action name="list*" class="listTaskAction">
 			<param name="opt">{1}</param>
-			<result name="success">/WEB-INF/pages/list.jsp</result>
+			<result name="success">/WEB-INF/pages/wechat/list.jsp</result>
 		</action>
 
 		<!-- 增加页面 -->
 		<action name="add" class="addTaskAction">
-			<result name="success">/WEB-INF/pages/add.jsp</result>
+			<result name="success">/WEB-INF/pages/wechat/add.jsp</result>
 		</action>
 
 		<!-- 标记Task -->

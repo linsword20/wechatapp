@@ -8,5 +8,11 @@
 	<!-- 微信接口 -->
 		<action name="wechat" class="wechataction">
 		</action>
+		
+		<action name="addBlog" class="saveBlogAction">
+			<result name="input">/WEB-INF/pages/wechat/add_blog.jsp</result>
+			<result name="success" type="redirect">/addBlog.html</result>
+		</action>
+		
 </package>
 </struts>

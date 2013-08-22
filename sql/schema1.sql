@@ -59,7 +59,18 @@ CREATE TABLE city_code (
   KEY IDX_CITY (CITY)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+-- ----------------------------
+-- Table structure for `news`
+-- ----------------------------
+DROP TABLE IF EXISTS news;
+CREATE TABLE news (
+  ID int(11) NOT NULL,
+  TITLE varchar(30) DEFAULT NULL,
+  DESCRIPTION varchar(200) DEFAULT NULL,
+  PIC_URL varchar(80) DEFAULT NULL,
+  URL varchar(80) DEFAULT NULL,
+  PRIMARY KEY (ID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

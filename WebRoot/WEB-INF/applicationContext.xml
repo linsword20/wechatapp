@@ -44,6 +44,7 @@
 				<value>info/linsword20/todo/bean/User.hbm.xml</value>
 				<value>info/linsword20/weather/bean/CityInfo.hbm.xml</value>
 				<value>info/linsword20/log/bean/Log.hbm.xml</value>
+				<value>info/linsword20/wechat/bean/message/NewsItem.hbm.xml</value>
 			</list>
 		</property>
 
@@ -67,6 +68,10 @@
 	<!--
 		***************************************************************微信*****************************************************
 	-->
+	<bean id="wechatDao" class="info.linsword20.wechat.dao.impl.WechatDAOImpl" scope="singleton">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
 
 	<!-- 回复Text类型消息处理类 -->
 	<bean id="textResponseService"
@@ -80,6 +85,7 @@
 		class="info.linsword20.wechat.service.impl.NewsResponseServiceImpl"
 		scope="singleton">
 		<property name="weatherService" ref="weacherService"></property>
+		<property name="wechatDao" ref="wechatDao"></property>
 	</bean>
 
 	<!-- 消息处理类 -->
@@ -90,11 +96,31 @@
 		<property name="newsResponseService" ref="newsResponseService"></property>
 	</bean>
 
+	<bean id="wechatServiceTarget" class="info.linsword20.wechat.service.impl.WechatSerciceImpl" scope="singleton">
+		<property name="wechatDao" ref="wechatDao"></property>
+	</bean>
+
+	<bean id="wechatService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="target" ref="wechatServiceTarget"></property>
+		<property name="transactionManager" ref="transactionManager"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
 
 	<!-- action -->
 	<bean id="wechataction" class="info.linsword20.wechat.action.WechatAction"
 		scope="prototype">
 		<property name="msgProcessService" ref="msgProcessService"></property>
+	</bean>
+	
+	
+	<bean id="saveBlogAction" class="info.linsword20.wechat.action.SaveBlogAction" scope="prototype">
+		<property name="wechatService" ref="wechatService"></property>
 	</bean>
 
 	<!--
